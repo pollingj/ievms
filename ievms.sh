@@ -69,24 +69,28 @@ build_ievm() {
             url="http://download.microsoft.com/download/B/7/2/B72085AE-0F04-4C6F-9182-BF1EE90F5273/Windows_XP_IE6.exe"
             archive="Windows_XP_IE6.exe"
             vhd="Windows XP.vhd"
+            vmc="Windows XP.vmc"
             vm_type="win-xp"
             ;;
         7) 
             url="http://download.microsoft.com/download/B/7/2/B72085AE-0F04-4C6F-9182-BF1EE90F5273/Windows_Vista_IE7.part0{1.exe,2.rar,3.rar,4.rar,5.rar,6.rar}"
             archive="Windows_Vista_IE7.part01.exe"
             vhd="Windows Vista.vhd"
+            vmc="Windows Vista.vmc"
             vm_type="win-vista"
             ;;
         8) 
             url="http://download.microsoft.com/download/B/7/2/B72085AE-0F04-4C6F-9182-BF1EE90F5273/Windows_7_IE8.part0{1.exe,2.rar,3.rar,4.rar}"
             archive="Windows_7_IE8.part01.exe"
             vhd="Win7_IE8.vhd"
+            vmc="Win7_IE8.vmc"
             vm_type="win"
             ;;
         9) 
             url="http://download.microsoft.com/download/B/7/2/B72085AE-0F04-4C6F-9182-BF1EE90F5273/Windows_7_IE9.part0{1.exe,2.rar,3.rar,4.rar,5.rar,6.rar,7.rar}"
             archive="Windows_7_IE9.part01.exe"
             vhd="Windows 7.vhd"
+            vmc="Windows 7.vmc"
             vm_type="win"
             ;;
         *)
@@ -142,7 +146,7 @@ build_ievm() {
         #VBoxManage storageattach "${vm}" --storagectl "Floppy Controller" --port 0 --device 0 --type fdd --medium emptydrive
         #VBoxManage snapshot "${vm}" take clean --description "The initial VM state"
         prlctl create "${vm}" -o windows -d "${vm_type}"
-        prlctl register "${vhd_path}/${vhd}"
+        prlctl register "${vhd_path}/${vmc}"
         prlctl snapshot "${vm}" 
         
     fi
