@@ -146,7 +146,8 @@ build_ievm() {
         #VBoxManage storageattach "${vm}" --storagectl "Floppy Controller" --port 0 --device 0 --type fdd --medium emptydrive
         #VBoxManage snapshot "${vm}" take clean --description "The initial VM state"
         prlctl create "${vm}" -o windows -d "${vm_type}"
-        prlctl register "${vhd_path}/${vmc}"
+        #prlctl register "${vhd_path}/${vmc}"
+        /Library/Parallels/Parallels\ Service.app/Contents/PlugIns/Parallels\ VM\ Converter.app/Contents/MacOS/prl_convert
         prlctl snapshot "${vm}" 
         
     fi
