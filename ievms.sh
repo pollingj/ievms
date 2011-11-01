@@ -147,7 +147,7 @@ build_ievm() {
         #VBoxManage snapshot "${vm}" take clean --description "The initial VM state"
         prlctl create "${vm}" -o windows -d "${vm_type}"
         #prlctl register "${vhd_path}/${vmc}"
-        /Library/Parallels/Parallels\ Service.app/Contents/PlugIns/Parallels\ VM\ Converter.app/Contents/MacOS/prl_convert
+        /Library/Parallels/Parallels\ Service.app/Contents/PlugIns/Parallels\ VM\ Converter.app/Contents/MacOS/prl_convert "${vhd_path}/${vhd}"
         prlctl snapshot "${vm}" 
         
     fi
