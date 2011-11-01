@@ -70,7 +70,6 @@ build_ievm() {
             archive="Windows_XP_IE6.exe"
             vhd="Windows XP.vhd"
             vm_type="win-xp"
-            fail "IE6 support is currently disabled"
             ;;
         7) 
             url="http://download.microsoft.com/download/B/7/2/B72085AE-0F04-4C6F-9182-BF1EE90F5273/Windows_Vista_IE7.part0{1.exe,2.rar,3.rar,4.rar,5.rar,6.rar}"
