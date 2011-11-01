@@ -142,6 +142,7 @@ build_ievm() {
         #VBoxManage storageattach "${vm}" --storagectl "Floppy Controller" --port 0 --device 0 --type fdd --medium emptydrive
         #VBoxManage snapshot "${vm}" take clean --description "The initial VM state"
         prlctl create "${vm}" -o windows -d "${vm_type}"
+        prlctl register "${vhd_path}/${vhd}"
         prlctl snapshot "${vm}" 
         
     fi
