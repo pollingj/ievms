@@ -12,11 +12,13 @@ and IE9 running in separate virtual machines.
     :alt: Click here to lend your support to ievms and make a donation at pledgie.com!
     :target: http://pledgie.com/campaigns/15995
 
+This fork is being changed to run with Parallels as opposed to VirtualBox.
+
 
 Requirements
 ============
 
-* VirtualBox (http://virtualbox.org)
+* Parallels (http://www.parallels.com)
 * Curl (Ubuntu: ``sudo apt-get install curl``)
 * Linux Only: unrar (Ubuntu: ``sudo apt-get install unrar``)
 * Patience
@@ -25,17 +27,17 @@ Requirements
 Installation
 ============
 
-1. Install VirtualBox.
+1. Install Parallels.
 
 2. Download and unpack ievms:
 
 * Install IE versions 7, 8 and 9 - no support for IE6 currently
 
-    curl -s https://raw.github.com/xdissent/ievms/master/ievms.sh | bash
+    curl -s https://raw.github.com/pollingj/ievms/master/ievms.sh | bash
 
 * Install specific IE versions (IE7 and IE9 only for example):
 
-    curl -s https://raw.github.com/xdissent/ievms/master/ievms.sh | IEVMS_VERSIONS="7 9" bash
+    curl -s https://raw.github.com/pollingj/ievms/master/ievms.sh | IEVMS_VERSIONS="7 9" bash
 
 3. Launch Virtual Box
 
@@ -63,7 +65,7 @@ Specifying the install path
 
 To specify where the VMs are installed, use the INSTALL_PATH variable:
 
-    curl -s https://raw.github.com/xdissent/ievms/master/ievms.sh | INSTALL_PATH="/Path/to/.ievms" bash
+    curl -s https://raw.github.com/pollingj/ievms/master/ievms.sh | INSTALL_PATH="/Path/to/.ievms" bash
 
 
 Features
