@@ -27,34 +27,9 @@ check_system() {
     esac
 }
 
-check_virtualbox() {
-    log "Checking for VirtualBox"
-    hash VBoxManage 2>&- || fail "VirtualBox is not installed! (http://virtualbox.org)"
-
-    log "Checking for Oracle VM VirtualBox Extension Pack"
-    if ! VBoxManage list extpacks | grep "Oracle VM VirtualBox Extension Pack"
-    then
-        version=`VBoxManage -v`
-        ext_version="${version/r/-}"
-        short_version="${version/r*/}"
-        url="http://download.virtualbox.org/virtualbox/${short_version}/Oracle_VM_VirtualBox_Extension_Pack-${ext_version}.vbox-extpack"
-        archive="Oracle_VM_VirtualBox_Extension_Pack-${ext_version}.vbox-extpack"
-
-        if [[ ! -f "${archive}" ]]
-        then
-            log "Downloading Oracle VM VirtualBox Extension Pack from ${url} to ${ievms_home}/${archive}"
-            if ! curl -L "${url}" -o "${archive}"
-            then
-                fail "Failed to download ${url} to ${ievms_home}/${archive} using 'curl', error code ($?)"
-            fi
-        fi
-
-        log "Installing Oracle VM VirtualBox Extension Pack from ${ievms_home}/${archive}"
-        if ! VBoxManage extpack install "${archive}"
-        then
-            fail "Failed to install Oracle VM VirtualBox Extension Pack from ${ievms_home}/${archive}, error code ($?)"
-        fi
-    fi
+check_parallels() {
+    log "Checking for Parallels"
+    hash prlctl  2>&- || fail "Parallels is not installed!"
 }
 
 install_unrar() {
@@ -173,7 +148,7 @@ build_ievm() {
 
 check_system
 create_home
-check_virtualbox
+check_parallels
 check_unrar
 
 all_versions="7 8 9"
