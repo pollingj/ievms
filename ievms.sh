@@ -69,26 +69,26 @@ build_ievm() {
             url="http://download.microsoft.com/download/B/7/2/B72085AE-0F04-4C6F-9182-BF1EE90F5273/Windows_XP_IE6.exe"
             archive="Windows_XP_IE6.exe"
             vhd="Windows XP.vhd"
-            vm_type="WindowsXP"
+            vm_type="win-xp"
             fail "IE6 support is currently disabled"
             ;;
         7) 
             url="http://download.microsoft.com/download/B/7/2/B72085AE-0F04-4C6F-9182-BF1EE90F5273/Windows_Vista_IE7.part0{1.exe,2.rar,3.rar,4.rar,5.rar,6.rar}"
             archive="Windows_Vista_IE7.part01.exe"
             vhd="Windows Vista.vhd"
-            vm_type="WindowsVista"
+            vm_type="win-vista"
             ;;
         8) 
             url="http://download.microsoft.com/download/B/7/2/B72085AE-0F04-4C6F-9182-BF1EE90F5273/Windows_7_IE8.part0{1.exe,2.rar,3.rar,4.rar}"
             archive="Windows_7_IE8.part01.exe"
             vhd="Win7_IE8.vhd"
-            vm_type="Windows7"
+            vm_type="win"
             ;;
         9) 
             url="http://download.microsoft.com/download/B/7/2/B72085AE-0F04-4C6F-9182-BF1EE90F5273/Windows_7_IE9.part0{1.exe,2.rar,3.rar,4.rar,5.rar,6.rar,7.rar}"
             archive="Windows_7_IE9.part01.exe"
             vhd="Windows 7.vhd"
-            vm_type="Windows7"
+            vm_type="win"
             ;;
         *)
             fail "Invalid IE version: ${1}"
@@ -125,24 +125,26 @@ build_ievm() {
     fi
 
     log "Checking for existing ${vm} VM"
-    if ! VBoxManage showvminfo "${vm}"
+    if ! prlctl list -i -f "${vm}"
     then
 
-        case $kernel in
-            Darwin) ga_iso="/Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso" ;;
-            Linux) ga_iso="/usr/share/virtualbox/VBoxGuestAdditions.iso" ;;
-        esac
+        #case $kernel in
+        #    Darwin) ga_iso="/Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso" ;;
+        #esac
 
         log "Creating ${vm} VM"
-        VBoxManage createvm --name "${vm}" --ostype "${vm_type}" --register
-        VBoxManage modifyvm "${vm}" --memory 256 --vram 32
-        VBoxManage storagectl "${vm}" --name "IDE Controller" --add ide --controller PIIX4 --bootable on
-        VBoxManage storagectl "${vm}" --name "Floppy Controller" --add floppy
-        VBoxManage internalcommands sethduuid "${vhd_path}/${vhd}"
-        VBoxManage storageattach "${vm}" --storagectl "IDE Controller" --port 0 --device 0 --type hdd --medium "${vhd_path}/${vhd}"
-        VBoxManage storageattach "${vm}" --storagectl "IDE Controller" --port 0 --device 1 --type dvddrive --medium "${ga_iso}"
-        VBoxManage storageattach "${vm}" --storagectl "Floppy Controller" --port 0 --device 0 --type fdd --medium emptydrive
-        VBoxManage snapshot "${vm}" take clean --description "The initial VM state"
+        #VBoxManage createvm --name "${vm}" --ostype "${vm_type}" --register
+        #VBoxManage modifyvm "${vm}" --memory 256 --vram 32
+        #VBoxManage storagectl "${vm}" --name "IDE Controller" --add ide --controller PIIX4 --bootable on
+        #VBoxManage storagectl "${vm}" --name "Floppy Controller" --add floppy
+        #VBoxManage internalcommands sethduuid "${vhd_path}/${vhd}"
+        #VBoxManage storageattach "${vm}" --storagectl "IDE Controller" --port 0 --device 0 --type hdd --medium "${vhd_path}/${vhd}"
+        #VBoxManage storageattach "${vm}" --storagectl "IDE Controller" --port 0 --device 1 --type dvddrive --medium "${ga_iso}"
+        #VBoxManage storageattach "${vm}" --storagectl "Floppy Controller" --port 0 --device 0 --type fdd --medium emptydrive
+        #VBoxManage snapshot "${vm}" take clean --description "The initial VM state"
+        prlctl create "${vm}" -o windows -d "${vm_type}"
+        prlctl snapshot "${vm}" 
+        
     fi
 }
 
